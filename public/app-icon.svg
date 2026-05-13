@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" fill="none">
+  <rect width="1024" height="1024" rx="224" fill="#17181C" />
+  <rect x="72" y="72" width="880" height="880" rx="192" fill="url(#bgGlow)" fill-opacity="0.22" />
+  <path d="M290 332C290 293.34 321.34 262 360 262H664C702.66 262 734 293.34 734 332V392H290V332Z" fill="#262B31" />
+  <path d="M250 392H774C801.614 392 824 414.386 824 442V628C824 711.948 755.948 780 672 780H352C268.052 780 200 711.948 200 628V442C200 414.386 222.386 392 250 392Z" fill="#20242A" />
+  <path d="M290 332C290 293.34 321.34 262 360 262H664C702.66 262 734 293.34 734 332V356H684V340C684 322.327 669.673 308 652 308H372C354.327 308 340 322.327 340 340V392H290V332Z" fill="#343B45" />
+  <path d="M200 454H824V628C824 711.948 755.948 780 672 780H352C268.052 780 200 711.948 200 628V454Z" fill="url(#walletSurface)" />
+  <rect x="560" y="476" width="220" height="136" rx="44" fill="#0F1115" stroke="#313843" stroke-width="18" />
+  <circle cx="700" cy="544" r="22" fill="#E2C37A" />
+  <path d="M322 660L420 560L498 620L640 462" stroke="#7BD0FF" stroke-width="44" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="322" cy="660" r="30" fill="#7BD0FF" />
+  <circle cx="420" cy="560" r="30" fill="#7BD0FF" />
+  <circle cx="498" cy="620" r="30" fill="#7BD0FF" />
+  <circle cx="640" cy="462" r="30" fill="#7BD0FF" />
+  <defs>
+    <linearGradient id="bgGlow" x1="512" y1="72" x2="512" y2="952" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0E639C" />
+      <stop offset="1" stop-color="#17181C" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="walletSurface" x1="512" y1="454" x2="512" y2="780" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#232830" />
+      <stop offset="1" stop-color="#1A1D23" />
+    </linearGradient>
+  </defs>
+</svg>
