@@ -9,7 +9,11 @@ import { registerListeners } from "./listeners/listeners";
 
 export const budgetModule: FeatureModule = {
   name: "budgets",
-  repositories: [BudgetRepository, SettingRepository, ExpenseRepository],
-  services: [BudgetService],
+  repositories: [
+    { key: "budgetRepository", repository: BudgetRepository },
+    { key: "settingRepository", repository: SettingRepository },
+    { key: "expenseRepository", repository: ExpenseRepository },
+  ],
+  services: [{ key: "budgetService", service: BudgetService }],
   listeners: registerListeners,
 };

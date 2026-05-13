@@ -1,9 +1,5 @@
-import type { AppRegistry, FeatureModule, ServiceClass } from "./types";
+import type { AppRegistry, FeatureModule } from "./types";
 import { Logger } from "../logger";
-
-function classToPropertyKey(ctor: { name: string }): string {
-  return ctor.name.charAt(0).toLowerCase() + ctor.name.slice(1);
-}
 
 export function buildAppFromModules(modules: readonly FeatureModule[]) {
   const appRegistry: AppRegistry = {
@@ -24,14 +20,14 @@ export function buildAppFromModules(modules: readonly FeatureModule[]) {
   for (const m of modules) {
     Logger.info(`Initializing feature module: ${m.name}`);
 
-    for (const Repo of m.repositories ?? []) {
-      const key = classToPropertyKey(Repo);
-      repositories[key] = new (Repo as new () => object)();
+    for (const repoDef of m.repositories ?? []) {
+      repositories[repoDef.key] = new repoDef.repository();
     }
 
-    for (const Svc of m.services ?? []) {
-      const key = classToPropertyKey(Svc);
-      appRegistry.services[key] = new (Svc as ServiceClass)(repositories);
+    for (const serviceDef of m.services ?? []) {
+      appRegistry.services[serviceDef.key] = new serviceDef.service(
+        repositories,
+      );
     }
 
     if (m.listeners) {

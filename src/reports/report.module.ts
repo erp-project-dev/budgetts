@@ -7,6 +7,6 @@ import { ReportService } from "@/reports/services/report.service";
 export const reportModule: FeatureModule = {
   name: "reports",
   routes: ReportRouter,
-  repositories: [BudgetRepository],
-  services: [ReportService],
+  repositories: [{ key: "budgetRepository", repository: BudgetRepository }],
+  services: [{ key: "reportService", service: ReportService }],
 };

@@ -5,6 +5,6 @@ import { AuthService } from "./services/auth.service";
 
 export const authModule: FeatureModule = {
   name: "auth",
-  repositories: [AuthRepository],
-  services: [AuthService],
+  repositories: [{ key: "authRepository", repository: AuthRepository }],
+  services: [{ key: "authService", service: AuthService }],
 };

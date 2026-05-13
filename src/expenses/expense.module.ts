@@ -7,6 +7,6 @@ import { ExpenseService } from "@/expenses/services/expense.service";
 export const expenseModule: FeatureModule = {
   name: "expenses",
   routes: ExpenseRouter,
-  repositories: [ExpenseRepository],
-  services: [ExpenseService],
+  repositories: [{ key: "expenseRepository", repository: ExpenseRepository }],
+  services: [{ key: "expenseService", service: ExpenseService }],
 };
