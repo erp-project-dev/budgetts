@@ -6,20 +6,23 @@ import { Logger } from "@/core/logger";
 import type { CurrencyCode } from "@/shared/types/currency";
 
 import { useSignedInApp } from "@/app/hooks/useApp";
+import type { ExpenseService } from "@/expenses/services/expense.service";
 import type { Expense } from "@/expenses/types";
+import type { SettingService } from "@/settings/services/setting.service";
 
 import { HomeContext } from "./home-context";
 
 export function HomeProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
-  const {
-    session,
-    services: { expenseService, settingService },
-  } = useSignedInApp();
+  const { session, useServices } = useSignedInApp();
 
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [currentLimit, setCurrentLimit] = useState(0);
   const [currency, setCurrency] = useState<CurrencyCode>("PEN");
+
+  const [expenseService, settingService] = useServices<
+    [ExpenseService, SettingService]
+  >("expenseService", "settingService");
 
   useEffect(() => {
     const fetchHomeData = async () => {

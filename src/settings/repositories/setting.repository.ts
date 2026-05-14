@@ -1,5 +1,6 @@
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
+import { Injectable } from "@/core/decorators/injectable.decorator";
 import { firestoreDb } from "@/core/persistence/firebase";
 
 import type { Setting } from "../types";
@@ -16,6 +17,7 @@ function makeDefaultSetting(userId: string): Setting {
   return sanitizeSetting(userId);
 }
 
+@Injectable("settingRepository")
 export class SettingRepository {
   async get(userId: string): Promise<Setting> {
     const ref = doc(firestoreDb, "settings", userId);

@@ -4,15 +4,13 @@ import { useCallback, useMemo } from "react";
 import { Logger } from "@/core/logger";
 
 import { useSignedOutApp } from "@/app/hooks/useApp";
+import type { AuthService } from "@/auth/services/auth.service";
 
 import { LoginContext } from "./login-context";
 
 export function LoginProvider({ children }: { children: ReactNode }) {
-  const {
-    session,
-    loading,
-    services: { authService },
-  } = useSignedOutApp();
+  const { session, loading, useServices } = useSignedOutApp();
+  const [authService] = useServices<[AuthService]>("authService");
 
   const isSignedIn = session !== null && !loading;
 

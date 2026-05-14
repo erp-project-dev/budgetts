@@ -1,5 +1,27 @@
-import type { AppRegistry, FeatureModule } from "./types";
+import type {
+  AppRegistry,
+  FeatureModule,
+  RepositoryClass,
+  ServiceClass,
+} from "./types";
+import { hasInjectableRegistrationId } from "../decorators/injectable.decorator";
 import { Logger } from "../logger";
+
+const toRegistryKey = (name: string) =>
+  name.charAt(0).toLowerCase() + name.slice(1);
+
+const getRepositoryKey = (
+  repository: unknown,
+  repositoryCtor: RepositoryClass,
+) =>
+  hasInjectableRegistrationId(repository)
+    ? repository._REGISTRATION_ID
+    : toRegistryKey(repositoryCtor.name);
+
+const getServiceKey = (serviceCtor: ServiceClass) =>
+  hasInjectableRegistrationId(serviceCtor.prototype)
+    ? serviceCtor.prototype._REGISTRATION_ID
+    : toRegistryKey(serviceCtor.name);
 
 export function buildAppFromModules(modules: readonly FeatureModule[]) {
   const appRegistry: AppRegistry = {
@@ -20,14 +42,16 @@ export function buildAppFromModules(modules: readonly FeatureModule[]) {
   for (const m of modules) {
     Logger.info(`Initializing feature module: ${m.name}`);
 
-    for (const repoDef of m.repositories ?? []) {
-      repositories[repoDef.key] = new repoDef.repository();
+    for (const repositoryCtor of m.repositories ?? []) {
+      const repository = new repositoryCtor();
+      const repositoryKey = getRepositoryKey(repository, repositoryCtor);
+
+      repositories[repositoryKey] = repository;
     }
 
-    for (const serviceDef of m.services ?? []) {
-      appRegistry.services[serviceDef.key] = new serviceDef.service(
-        repositories,
-      );
+    for (const serviceCtor of m.services ?? []) {
+      const serviceKey = getServiceKey(serviceCtor);
+      appRegistry.services[serviceKey] = new serviceCtor(repositories);
     }
 
     if (m.listeners) {

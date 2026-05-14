@@ -5,7 +5,7 @@ import type { UserSession } from "@/auth/types";
 import { AppContext } from "../context/app-context";
 import type { AppContextValue } from "../types";
 
-type SignedInAppContext = Omit<AppContextValue, "session"> & {
+type SignedInAppContext = AppContextValue & {
   session: UserSession;
 };
 

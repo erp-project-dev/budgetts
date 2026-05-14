@@ -8,10 +8,12 @@ import {
   where,
 } from "firebase/firestore";
 
+import { Injectable } from "@/core/decorators/injectable.decorator";
 import { firestoreDb } from "@/core/persistence/firebase";
 
 import type { Budget } from "../types";
 
+@Injectable("budgetRepository")
 export class BudgetRepository {
   private readonly collectionRef = collection(firestoreDb, "budgets");
 

@@ -1,3 +1,4 @@
+import { Injectable } from "@/core/decorators/injectable.decorator";
 import { eventBus } from "@/core/events/event-bus";
 
 import { BUDGET_TOPICS } from "@/budgets/listeners";
@@ -5,6 +6,7 @@ import { BUDGET_TOPICS } from "@/budgets/listeners";
 import { SettingRepository } from "../repositories/setting.repository";
 import type { Setting } from "../types";
 
+@Injectable("settingService")
 export class SettingService {
   private readonly repository: SettingRepository;
 

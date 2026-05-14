@@ -7,13 +7,13 @@ import { formatCurrency } from "@/shared/utils/currency-format";
 
 import { useSignedInApp } from "@/app/hooks/useApp";
 
+import type { ReportService } from "./services/report.service";
 import type { MonthlyReportItem } from "./types";
 
 export function ReportPage() {
-  const {
-    session,
-    services: { reportService },
-  } = useSignedInApp();
+  const { session, useServices } = useSignedInApp();
+  const [reportService] = useServices<[ReportService]>("reportService");
+
   const [data, setData] = useState<MonthlyReportItem[]>([]);
   const [loading, setLoading] = useState(true);
 

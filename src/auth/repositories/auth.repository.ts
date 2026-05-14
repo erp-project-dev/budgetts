@@ -9,6 +9,7 @@ import {
   type User,
 } from "firebase/auth";
 
+import { Injectable } from "@/core/decorators/injectable.decorator";
 import { firebaseAuth } from "@/core/persistence/firebase";
 
 import type { UserSession } from "../types";
@@ -16,29 +17,18 @@ import type { UserSession } from "../types";
 type AuthStateListener = (session: UserSession | null) => void;
 export type AuthMode = "popup" | "redirect";
 
-function toUserSession(user: User | null): UserSession | null {
-  if (!user) {
-    return null;
-  }
-
-  return {
-    id: user.uid,
-    email: user.email ?? "",
-    name: user.displayName ?? "",
-  };
-}
-
+@Injectable("authRepository")
 export class AuthRepository {
   private readonly provider = new GoogleAuthProvider();
 
   async getSession(): Promise<UserSession | null> {
     await firebaseAuth.authStateReady();
-    return toUserSession(firebaseAuth.currentUser);
+    return this.toUserSession(firebaseAuth.currentUser);
   }
 
   observeSession(listener: AuthStateListener): () => void {
     return onAuthStateChanged(firebaseAuth, (user) => {
-      listener(toUserSession(user));
+      listener(this.toUserSession(user));
     });
   }
 
@@ -54,5 +44,17 @@ export class AuthRepository {
 
   async signOut(): Promise<void> {
     await firebaseSignOut(firebaseAuth);
+  }
+
+  private toUserSession(user: User | null): UserSession | null {
+    if (!user) {
+      return null;
+    }
+
+    return {
+      id: user.uid,
+      email: user.email ?? "",
+      name: user.displayName ?? "",
+    };
   }
 }

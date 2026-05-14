@@ -10,13 +10,12 @@ import { useSignedInApp } from "@/app/hooks/useApp";
 
 import { AddExpenseModal } from "./components/AddExpenseModal";
 import { ExpenseItem } from "./components/ExpenseItem";
+import { ExpenseService } from "./services/expense.service";
 import type { Expense } from "./types";
 
 export function ExpensePage() {
-  const {
-    session,
-    services: { expenseService },
-  } = useSignedInApp();
+  const { session, useServices } = useSignedInApp();
+  const [expenseService] = useServices<[ExpenseService]>("expenseService");
 
   const [items, setItems] = useState<Expense[]>([]);
   const [loading, setLoading] = useState(true);

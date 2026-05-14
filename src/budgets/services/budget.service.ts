@@ -1,8 +1,11 @@
+import { Injectable } from "@/core/decorators/injectable.decorator";
+
 import { ExpenseRepository } from "@/expenses/repositories/expense.repository";
 import { SettingRepository } from "@/settings/repositories/setting.repository";
 
 import { BudgetRepository } from "../repositories/budget.repository";
 
+@Injectable("budgetService")
 export class BudgetService {
   private readonly budgetRepository: BudgetRepository;
   private readonly settingRepository: SettingRepository;

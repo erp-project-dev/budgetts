@@ -1,19 +1,8 @@
-import type { AuthService } from "@/auth/services/auth.service";
-import type { BudgetService } from "@/budgets/services/budget.service";
-import type { ExpenseService } from "@/expenses/services/expense.service";
-import type { ReportService } from "@/reports/services/report.service";
-import type { SettingService } from "@/settings/services/setting.service";
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface AppContextValue {
   loading: boolean;
   session: { id: string; name: string } | null;
-  services: {
-    authService: AuthService;
-    expenseService: ExpenseService;
-    reportService: ReportService;
-    settingService: SettingService;
-    budgetService: BudgetService;
-  };
+  useServices: <T extends any[]>(...keys: string[]) => T;
 }
 
 export interface AppRouter {

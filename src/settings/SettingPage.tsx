@@ -11,15 +11,14 @@ import { formatCurrency } from "@/shared/utils/currency-format";
 
 import { useSignedInApp } from "@/app/hooks/useApp";
 
+import { SettingService } from "./services/setting.service";
 import type { Setting } from "./types";
 
 const DEFAULT_CURRENCY: CurrencyCode = "PEN";
 
 export function SettingPage() {
-  const {
-    session,
-    services: { settingService },
-  } = useSignedInApp();
+  const { session, useServices } = useSignedInApp();
+  const [settingService] = useServices<[SettingService]>("settingService");
 
   const [config, setConfig] = useState<Setting | null>(null);
   const [loading, setLoading] = useState(true);

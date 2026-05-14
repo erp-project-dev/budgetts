@@ -1,8 +1,11 @@
+import { Injectable } from "@/core/decorators/injectable.decorator";
+
 import { type AuthMode, AuthRepository } from "../repositories/auth.repository";
 import type { UserSession } from "../types";
 
 type AuthStateListener = (session: UserSession | null) => void;
 
+@Injectable("authService")
 export class AuthService {
   private readonly repository: AuthRepository;
 

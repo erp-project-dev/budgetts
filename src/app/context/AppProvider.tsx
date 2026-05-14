@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useState } from "react";
 
-import { appRegistry } from "@/core";
 import type { AppRegistry } from "@/core/modules/types";
 
 import { AuthService } from "@/auth/services/auth.service";
@@ -11,7 +10,7 @@ import { AppContext } from "./app-context";
 import type { AppContextValue } from "../types";
 
 export function AppProvider({
-  appRegistry: { services },
+  appRegistry,
   children,
 }: {
   appRegistry: AppRegistry;
@@ -37,9 +36,14 @@ export function AppProvider({
       ({
         loading,
         session,
-        services,
+        useServices: (...keys: string[]) => {
+          return keys.map((key) => {
+            const service = appRegistry.getService(key);
+            return service;
+          });
+        },
       }) as AppContextValue,
-    [loading, services, session],
+    [appRegistry, loading, session],
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

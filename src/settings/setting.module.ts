@@ -7,6 +7,6 @@ import { SettingService } from "@/settings/services/setting.service";
 export const settingModule: FeatureModule = {
   name: "settings",
   routes: SettingRouter,
-  repositories: [{ key: "settingRepository", repository: SettingRepository }],
-  services: [{ key: "settingService", service: SettingService }],
+  repositories: [SettingRepository],
+  services: [SettingService],
 };

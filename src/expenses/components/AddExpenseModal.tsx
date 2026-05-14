@@ -15,7 +15,9 @@ import { DEFAULT_CURRENCY_CODE } from "@/shared/constants/settings";
 import type { CurrencyCode } from "@/shared/types/currency";
 
 import { useSignedInApp } from "@/app/hooks/useApp";
+import { SettingService } from "@/settings/services/setting.service";
 
+import type { ExpenseService } from "../services/expense.service";
 import type { Expense } from "../types";
 
 interface AddExpenseModalProps {
@@ -31,10 +33,10 @@ export function AddExpenseModal({
   expense,
   onSuccess,
 }: AddExpenseModalProps) {
-  const {
-    services: { expenseService, settingService },
-    session,
-  } = useSignedInApp();
+  const { useServices, session } = useSignedInApp();
+  const [settingService, expenseService] = useServices<
+    [SettingService, ExpenseService]
+  >("settingService", "expenseService");
 
   const [amount, setAmount] = useState(expense?.amount.toString() || "");
   const [categoryId, setCategoryId] = useState<ExpenseCategoryId>(

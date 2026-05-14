@@ -1,3 +1,4 @@
+import { Injectable } from "@/core/decorators/injectable.decorator";
 import { eventBus } from "@/core/events/event-bus";
 
 import { BUDGET_TOPICS } from "@/budgets/listeners";
@@ -5,6 +6,7 @@ import { BUDGET_TOPICS } from "@/budgets/listeners";
 import { ExpenseRepository } from "../repositories/expense.repository";
 import type { Expense, NewExpenseInput, UpdateExpenseInput } from "../types";
 
+@Injectable("expenseService")
 export class ExpenseService {
   private readonly repository: ExpenseRepository;
 

@@ -13,6 +13,7 @@ import {
   where,
 } from "firebase/firestore";
 
+import { Injectable } from "@/core/decorators/injectable.decorator";
 import { firestoreDb } from "@/core/persistence/firebase";
 
 import type { Expense, NewExpenseInput, UpdateExpenseInput } from "../types";
@@ -29,6 +30,7 @@ function toExpenseRecord(id: string, data: any): Expense {
   };
 }
 
+@Injectable("expenseRepository")
 export class ExpenseRepository {
   private readonly collectionRef = collection(firestoreDb, "expenses");
 

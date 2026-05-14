@@ -1,7 +1,10 @@
+import { Injectable } from "@/core/decorators/injectable.decorator";
+
 import { BudgetRepository } from "@/budgets/repositories/budget.repository";
 
 import type { MonthlyReportItem } from "../types";
 
+@Injectable("reportService")
 export class ReportService {
   private readonly budgetRepository: BudgetRepository;
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
+import { AuthService } from "@/auth/services/auth.service";
 import { AddExpenseModal } from "@/expenses/components/AddExpenseModal";
 
 import { AppDrawer } from "./AppDrawer";
@@ -9,10 +10,9 @@ import { AppHeader } from "./AppHeader";
 import { useSignedInApp } from "../hooks/useApp";
 
 export function AppShellLayout() {
-  const {
-    session,
-    services: { authService },
-  } = useSignedInApp();
+  const { session, useServices } = useSignedInApp();
+
+  const [authService] = useServices<[AuthService]>("authService");
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [addExpenseOpen, setAddExpenseOpen] = useState(false);
