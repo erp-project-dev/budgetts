@@ -2,23 +2,36 @@
 type EventHandler = (data: any) => void;
 
 class EventBus {
-  private subs = new Map<string, EventHandler>();
+  private subs = new Map<string, Set<EventHandler>>();
 
   on(topic: string, handler: EventHandler) {
-    this.subs.set(topic, handler);
+    if (!this.subs.has(topic)) {
+      this.subs.set(topic, new Set());
+    }
+
+    const handlers = this.subs.get(topic)!;
+    handlers.add(handler);
 
     return () => {
-      if (this.subs.get(topic) === handler) {
+      handlers.delete(handler);
+
+      if (handlers.size === 0) {
         this.subs.delete(topic);
       }
     };
   }
 
   emit(topic: string, data?: any) {
-    const handler = this.subs.get(topic);
+    const handlers = this.subs.get(topic);
 
-    if (handler) {
-      handler(data);
+    if (handlers) {
+      handlers.forEach((handler) => {
+        try {
+          handler(data);
+        } catch (error) {
+          console.error(`Error en listener de ${topic}:`, error);
+        }
+      });
     }
   }
 }

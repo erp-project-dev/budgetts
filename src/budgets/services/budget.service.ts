@@ -4,6 +4,7 @@ import { ExpenseRepository } from "@/expenses/repositories/expense.repository";
 import { SettingRepository } from "@/settings/repositories/setting.repository";
 
 import { BudgetRepository } from "../repositories/budget.repository";
+import { Budget } from "../types";
 
 @Injectable("budgetService")
 export class BudgetService {
@@ -23,6 +24,26 @@ export class BudgetService {
     this.budgetRepository = budgetRepository;
     this.settingRepository = settingRepository;
     this.expenseRepository = expenseRepository;
+  }
+
+  async getCurrentBudget(userId: string): Promise<Budget> {
+    const period = this.getCurrentPeriod();
+
+    const { monthlyLimit: amount, currencyCode: currency } =
+      await this.settingRepository.get(userId);
+
+    const spent = await this.expenseRepository.getTotalSpentForPeriod(
+      userId,
+      period,
+    );
+
+    return {
+      amount,
+      currency,
+      period,
+      spent,
+      userId,
+    };
   }
 
   getCurrentPeriod(): string {

@@ -55,7 +55,7 @@ export function buildAppFromModules(modules: readonly FeatureModule[]) {
     }
 
     if (m.listeners) {
-      m.listeners(appRegistry);
+      m.listeners(appRegistry.services);
     }
   }
 

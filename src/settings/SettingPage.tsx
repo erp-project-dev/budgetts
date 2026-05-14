@@ -1,5 +1,7 @@
 import { type FormEvent, useEffect, useRef, useState } from "react";
 
+import { eventBus } from "@/core/events/event-bus";
+
 import { Section } from "@/shared/components/blocks/Section";
 import { SkeletonWrapper } from "@/shared/components/blocks/SkeletonWrapper";
 import { Button } from "@/shared/components/form/Button";
@@ -10,6 +12,7 @@ import type { CurrencyCode } from "@/shared/types/currency";
 import { formatCurrency } from "@/shared/utils/currency-format";
 
 import { useSignedInApp } from "@/app/hooks/useApp";
+import { BUDGET_TOPICS } from "@/budgets/listeners";
 
 import { SettingService } from "./services/setting.service";
 import type { Setting } from "./types";
@@ -110,6 +113,8 @@ export function SettingPage() {
       setSaving(false);
       isSubmittingRef.current = false;
     }
+
+    eventBus.emit(BUDGET_TOPICS.BUDGET_UI_REFRESH);
   }
 
   return (

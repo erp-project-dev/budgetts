@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import { eventBus } from "@/core/events/event-bus";
 import { Logger } from "@/core/logger";
 
 import { Section } from "@/shared/components/blocks/Section";
@@ -7,6 +8,7 @@ import { SkeletonWrapper } from "@/shared/components/blocks/SkeletonWrapper";
 import { Button } from "@/shared/components/form/Button";
 
 import { useSignedInApp } from "@/app/hooks/useApp";
+import { BUDGET_TOPICS } from "@/budgets/listeners";
 
 import { AddExpenseModal } from "./components/AddExpenseModal";
 import { ExpenseItem } from "./components/ExpenseItem";
@@ -45,6 +47,8 @@ export function ExpensePage() {
     try {
       await expenseService.remove(session.id, id);
       setItems((prev) => prev.filter((item) => item.id !== id));
+
+      eventBus.emit(BUDGET_TOPICS.BUDGET_UI_REFRESH);
     } catch (error) {
       Logger.error("Error deleting expense:", error);
     }

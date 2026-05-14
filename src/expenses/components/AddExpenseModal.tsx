@@ -2,6 +2,8 @@ import { type FormEvent, useEffect, useState } from "react";
 
 import { X } from "lucide-react";
 
+import { eventBus } from "@/core/events/event-bus";
+
 import { Button } from "@/shared/components/form/Button";
 import { Input } from "@/shared/components/form/Input";
 import { Label } from "@/shared/components/form/Label";
@@ -15,6 +17,7 @@ import { DEFAULT_CURRENCY_CODE } from "@/shared/constants/settings";
 import type { CurrencyCode } from "@/shared/types/currency";
 
 import { useSignedInApp } from "@/app/hooks/useApp";
+import { BUDGET_TOPICS } from "@/budgets/listeners";
 import { SettingService } from "@/settings/services/setting.service";
 
 import type { ExpenseService } from "../services/expense.service";
@@ -104,6 +107,7 @@ export function AddExpenseModal({
       }
     } finally {
       setSaving(false);
+      eventBus.emit(BUDGET_TOPICS.BUDGET_UI_REFRESH);
     }
   }
 

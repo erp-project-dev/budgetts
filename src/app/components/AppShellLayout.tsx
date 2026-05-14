@@ -6,7 +6,7 @@ import { AddExpenseModal } from "@/expenses/components/AddExpenseModal";
 
 import { AppDrawer } from "./AppDrawer";
 import { AppFooter } from "./AppFooter";
-import { AppHeader } from "./AppHeader";
+import { AppHeader } from "./AppHeader/AppHeader";
 import { useSignedInApp } from "../hooks/useApp";
 
 export function AppShellLayout() {

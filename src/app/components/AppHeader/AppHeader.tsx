@@ -1,5 +1,7 @@
 import { WalletIcon } from "lucide-react";
 
+import { AppHeaderBudget } from "./components/AppHeaderBudget";
+
 interface HeaderProps {
   onMenuOpen: () => void;
   onAddExpenseOpen: () => void;
@@ -7,9 +9,9 @@ interface HeaderProps {
 
 export function AppHeader({ onMenuOpen, onAddExpenseOpen }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-30 border-b border-zinc-700/80 bg-zinc-900/90 backdrop-blur">
-      <div className="mx-auto grid w-full max-w-6xl grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-6 lg:px-8">
-        <div className="flex justify-start">
+    <header className="sticky top-0 z-30 border-b border-zinc-700/80 bg-zinc-900/90 backdrop-blur items-center">
+      <div className="mx-auto grid w-full max-w-6xl grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 sm:px-6 lg:px-8">
+        <div className="flex justify-start pl-4">
           <button
             type="button"
             className="border-zinc-700 bg-zinc-800 text-zinc-200 hover:bg-zinc-700 hover:text-white"
@@ -19,13 +21,14 @@ export function AppHeader({ onMenuOpen, onAddExpenseOpen }: HeaderProps) {
           </button>
         </div>
 
-        <div className="min-w-0 text-center">
-          <span className="block truncate text-sm font-semibold uppercase tracking-[0.26em] text-zinc-100 sm:text-base">
-            BUDGETTS
+        <div className="flex text-zinc-100 py-4 items-center">
+          <span className="block truncate text-sm font-semibold uppercase tracking-[0.26em] flex-1">
+            BUDGET<span className="font-bold text-blue-200">TS</span>
           </span>
+          <AppHeaderBudget />
         </div>
 
-        <div className="flex justify-end">
+        <div className="flex justify-end pr-4">
           <button
             type="button"
             className="border-zinc-700 bg-zinc-800 text-zinc-200 hover:bg-zinc-700 hover:text-white"
