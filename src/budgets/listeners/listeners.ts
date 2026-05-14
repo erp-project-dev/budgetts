@@ -10,10 +10,7 @@ export function registerListeners({
   budgetService: BudgetService;
 }): void {
   eventBus.on(BUDGET_TOPICS.BUDGET_CHANGED, async (userId) => {
-    Logger.info(
-      `Budget changed for user ${userId}, ensuring current month budget exists...`,
-    );
-
+    Logger.info(`Updating budget for user:${userId} for current period.`);
     await budgetService.ensureCurrentMonthBudget(userId);
   });
 }

@@ -47,10 +47,12 @@ export function AppShellLayout() {
 
       <AppFooter releaseLabel={import.meta.env.VITE_RELEASE_AT} />
 
-      <AddExpenseModal
-        open={addExpenseOpen}
-        onClose={() => setAddExpenseOpen(false)}
-      />
+      {addExpenseOpen && (
+        <AddExpenseModal
+          open={addExpenseOpen}
+          onClose={() => setAddExpenseOpen(false)}
+        />
+      )}
     </div>
   );
 }

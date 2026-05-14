@@ -20,6 +20,7 @@ import { useSignedInApp } from "@/app/hooks/useApp";
 import { BUDGET_TOPICS } from "@/budgets/listeners";
 import { SettingService } from "@/settings/services/setting.service";
 
+import { InputCommonExpenses } from "./InputCommonExpenses/InputCommonExpenses";
 import type { ExpenseService } from "../services/expense.service";
 import type { Expense } from "../types";
 
@@ -139,7 +140,32 @@ export function AddExpenseModal({
         </div>
 
         <div className="grid gap-4 p-5">
+          <Label title="¿En que gastastes hoy?">
+            <InputCommonExpenses
+              value={description}
+              onChange={setDescription}
+              onSelectTemplate={(t) => {
+                setDescription(t.label);
+                setCategoryId(t.categoryId);
+                if (t.amount) setAmount(t.amount.toString());
+              }}
+              disabled={saving}
+              currrencyCode={currencyCode}
+            />
+          </Label>
+
           <div className="grid grid-cols-2 gap-4">
+            <Label title={`Monto (${currencyCode})`} required>
+              <Input
+                inputMode="decimal"
+                value={amount}
+                onChange={(ev) => setAmount(ev.target.value)}
+                placeholder="0.00"
+                disabled={saving}
+                required
+                autoFocus
+              />
+            </Label>
             <Label title="Categoría" required>
               <Select
                 value={categoryId}
@@ -156,27 +182,7 @@ export function AddExpenseModal({
                 ))}
               </Select>
             </Label>
-            <Label title={`Monto (${currencyCode})`} required>
-              <Input
-                inputMode="decimal"
-                value={amount}
-                onChange={(ev) => setAmount(ev.target.value)}
-                placeholder="0.00"
-                disabled={saving}
-                required
-                autoFocus
-              />
-            </Label>
           </div>
-
-          <Label title="Descripción">
-            <Input
-              value={description}
-              onChange={(ev) => setDescription(ev.target.value)}
-              placeholder="Ej. Metro, cena..."
-              disabled={saving}
-            />
-          </Label>
 
           <div className="flex justify-end gap-2 pt-2">
             <Button

@@ -27,3 +27,10 @@ export interface UpdateExpenseInput {
   categoryId: string;
   description?: string;
 }
+
+export interface ExpenseTemplate {
+  label: string;
+  categoryId: ExpenseCategoryId;
+  amount?: number;
+  keywords: string[];
+}

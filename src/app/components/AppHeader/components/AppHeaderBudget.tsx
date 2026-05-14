@@ -86,7 +86,7 @@ export function AppHeaderBudget() {
         {isLoading ? "---" : formatCurrency(spent, currency, 0)}
       </span>
 
-      <span className="text-zinc-200">/</span>
+      <span className="text-zinc-200">&middot;</span>
 
       <span
         className={`font-bold text-zinc-300 ${isLoading ? "animate-pulse" : ""}`}
