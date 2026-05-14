@@ -78,7 +78,7 @@ export function AppHeaderBudget() {
 
   return (
     <div
-      className={`flex items-center gap-1.5 font-mono text-[11px] leading-none tracking-tight transition-opacity duration-300 ${isLoading ? "opacity-50" : "opacity-100"}`}
+      className={`flex items-center gap-1.5 font-mono text-xs leading-none tracking-tight transition-opacity duration-300 ${isLoading ? "opacity-50" : "opacity-100"}`}
     >
       <span
         className={`font-normal ${statusColor} ${isLoading ? "animate-pulse" : ""}`}
