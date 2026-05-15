@@ -8,7 +8,6 @@ export const FOOD_TEMPLATES: ExpenseTemplate[] = [
   {
     label: "Almuerzo",
     categoryId,
-
     amount: 25,
     keywords: [
       "menu",
@@ -17,12 +16,13 @@ export const FOOD_TEMPLATES: ExpenseTemplate[] = [
       "la lucha",
       "restaurante",
       "almuerzo",
+      "madam tusan",
+      "norkys",
     ],
   },
   {
     label: "Cena",
     categoryId,
-
     amount: 45,
     keywords: [
       "cena",
@@ -33,6 +33,8 @@ export const FOOD_TEMPLATES: ExpenseTemplate[] = [
       "tanta",
       "papachos",
       "chifa",
+      "lonche",
+      "hornero",
     ],
   },
   {
@@ -45,7 +47,6 @@ export const FOOD_TEMPLATES: ExpenseTemplate[] = [
   {
     label: "Café",
     categoryId,
-
     amount: 14,
     keywords: [
       "starbucks",
@@ -54,12 +55,12 @@ export const FOOD_TEMPLATES: ExpenseTemplate[] = [
       "puku puku",
       "origami",
       "espresso",
+      "pancho fierro",
     ],
   },
   {
     label: "Supermercado",
     categoryId,
-
     keywords: [
       "wong",
       "metro",
@@ -74,7 +75,6 @@ export const FOOD_TEMPLATES: ExpenseTemplate[] = [
   {
     label: "Delivery comida",
     categoryId,
-
     keywords: [
       "rappi",
       "pedidosya",
@@ -87,7 +87,6 @@ export const FOOD_TEMPLATES: ExpenseTemplate[] = [
   {
     label: "Comida rápida",
     categoryId,
-
     amount: 30,
     keywords: [
       "bembos",
@@ -101,7 +100,6 @@ export const FOOD_TEMPLATES: ExpenseTemplate[] = [
   {
     label: "Snacks / Tambo",
     categoryId,
-
     amount: 12,
     keywords: [
       "tambo",
@@ -116,15 +114,13 @@ export const FOOD_TEMPLATES: ExpenseTemplate[] = [
   {
     label: "Panadería / Pastelería",
     categoryId,
-
     amount: 20,
     keywords: ["torta", "pasteles", "dulce", "donas", "empanada", "postre"],
   },
   {
     label: "Helados",
     categoryId,
-
     amount: 10,
-    keywords: ["donofrio", "4d", "pinkberry", "helado", "paleta"],
+    keywords: ["donofrio", "4d", "pinkberry", "helado", "paleta", "laritza"],
   },
 ];

@@ -163,7 +163,6 @@ export function AddExpenseModal({
                 placeholder="0.00"
                 disabled={saving}
                 required
-                autoFocus
               />
             </Label>
             <Label title="Categoría" required>

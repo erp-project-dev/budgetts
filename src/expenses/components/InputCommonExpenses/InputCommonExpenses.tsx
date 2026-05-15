@@ -60,6 +60,7 @@ export const InputCommonExpenses = ({
           onFocus={() => setShowSuggestions(true)}
           onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
           className="pl-11 pr-10"
+          autoFocus
         />
 
         <Search className="absolute left-4 top-4.5 w-4 h-4 text-stone-400 pointer-events-none" />

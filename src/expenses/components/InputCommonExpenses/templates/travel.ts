@@ -44,7 +44,15 @@ export const TRAVEL_TEMPLATES: ExpenseTemplate[] = [
   {
     label: "Vuelos / Pasajes",
     categoryId,
-    keywords: ["latam", "sky", "jetsmart", "vuelo", "pasaje aereo", "paseo"],
+    keywords: [
+      "latam",
+      "sky",
+      "jetsmart",
+      "vuelo",
+      "pasaje aereo",
+      "paseo",
+      "viaje",
+    ],
   },
   {
     label: "Alojamiento / Hotel",
