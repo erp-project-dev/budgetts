@@ -1,14 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { Logger } from "@/core/logger";
 
 import { Section } from "@/shared/components/blocks/Section";
 import { SkeletonWrapper } from "@/shared/components/blocks/SkeletonWrapper";
+import { CurrencyCode } from "@/shared/types/currency";
+import { getCurrentPeriod } from "@/shared/utils/date";
+
+import { useSignedInApp } from "@/app/hooks/useApp";
+import { ExpenseService } from "@/expenses/services/expense.service";
+import { Expense } from "@/expenses/types";
+import { SettingService } from "@/settings/services/setting.service";
 
 import { CategoryTableCard } from "./components/CategoryTableCard";
 import { Header } from "./components/Header";
 import { PeriodTabs } from "./components/PeriodTabs";
 import { SpendingPeriodCard } from "./components/SpendingPeriodCard";
 import { SummaryCard } from "./components/SummaryCard";
-import { useHome } from "./hooks/useHome";
 import {
   buildBudgetStatus,
   buildPeriodInsights,
@@ -16,10 +24,42 @@ import {
 } from "./utils/dashboard-insights";
 
 export function HomePage() {
-  const { loading, currency, expenses, currentLimit } = useHome();
+  const [loading, setLoading] = useState(true);
+  const { session, useServices } = useSignedInApp();
+
+  const [expenseService, settingService] = useServices<
+    [ExpenseService, SettingService]
+  >("expenseService", "settingService");
+
+  const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [currentLimit, setCurrentLimit] = useState(0);
+  const [currency, setCurrency] = useState<CurrencyCode>("PEN");
 
   const [selectedPeriod, setSelectedPeriod] = useState<DashboardPeriod>("day");
   const now = new Date();
+
+  useEffect(() => {
+    const fetchHomeData = async () => {
+      setLoading(true);
+      try {
+        const data = await expenseService.listByUser(
+          session.id,
+          getCurrentPeriod(),
+        );
+        const setting = await settingService.get(session.id);
+
+        setExpenses(data);
+        setCurrentLimit(setting.monthlyLimit);
+        setCurrency(setting.currencyCode);
+      } catch (error) {
+        Logger.error("Error fetching home data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHomeData();
+  }, [expenseService, session.id, settingService]);
 
   if (loading)
     return (

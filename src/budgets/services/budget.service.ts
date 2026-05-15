@@ -1,5 +1,7 @@
 import { Injectable } from "@/core/decorators/injectable.decorator";
 
+import { getCurrentPeriod } from "@/shared/utils/date";
+
 import { ExpenseRepository } from "@/expenses/repositories/expense.repository";
 import { SettingRepository } from "@/settings/repositories/setting.repository";
 
@@ -27,7 +29,7 @@ export class BudgetService {
   }
 
   async getCurrentBudget(userId: string): Promise<Budget> {
-    const period = this.getCurrentPeriod();
+    const period = getCurrentPeriod();
 
     const { monthlyLimit: amount, currencyCode: currency } =
       await this.settingRepository.get(userId);
@@ -46,21 +48,17 @@ export class BudgetService {
     };
   }
 
-  getCurrentPeriod(): string {
-    return this.budgetRepository.getCurrentPeriod();
-  }
-
   async ensureCurrentMonthBudget(userId: string): Promise<void> {
     const settings = await this.settingRepository.get(userId);
     const totalSpent = await this.expenseRepository.getTotalSpentForPeriod(
       userId,
-      this.getCurrentPeriod(),
+      getCurrentPeriod(),
     );
 
     await this.budgetRepository.ensureMonthlySnapshot({
       amount: settings?.monthlyLimit ?? 0,
       userId,
-      period: this.getCurrentPeriod(),
+      period: getCurrentPeriod(),
       spent: totalSpent,
       currency: settings?.currencyCode,
     });

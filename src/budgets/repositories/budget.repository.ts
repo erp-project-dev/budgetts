@@ -11,15 +11,13 @@ import {
 import { Injectable } from "@/core/decorators/injectable.decorator";
 import { firestoreDb } from "@/core/persistence/firebase";
 
+import { getCurrentPeriod } from "@/shared/utils/date";
+
 import type { Budget } from "../types";
 
 @Injectable("budgetRepository")
 export class BudgetRepository {
   private readonly collectionRef = collection(firestoreDb, "budgets");
-
-  getCurrentPeriod(): string {
-    return new Date().toISOString().slice(0, 7);
-  }
 
   async listByUser(userId: string): Promise<Budget[]> {
     const q = query(
@@ -36,7 +34,7 @@ export class BudgetRepository {
   }
 
   async ensureMonthlySnapshot(budget: Budget): Promise<void> {
-    const period = this.getCurrentPeriod();
+    const period = getCurrentPeriod();
 
     const q = query(
       this.collectionRef,

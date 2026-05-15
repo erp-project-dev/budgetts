@@ -151,6 +151,7 @@ export function AddExpenseModal({
               }}
               disabled={saving}
               currrencyCode={currencyCode}
+              autofocus={expense === undefined}
             />
           </Label>
 

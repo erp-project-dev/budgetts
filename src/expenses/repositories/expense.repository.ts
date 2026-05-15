@@ -58,10 +58,20 @@ export class ExpenseRepository {
     }, 0);
   }
 
-  async listByUser(userId: string): Promise<Expense[]> {
-    const snapshot = await getDocs(
-      query(this.collectionRef, where("userId", "==", userId)),
+  async listByUser(userId: string, period: string): Promise<Expense[]> {
+    const start = new Date(`${period}-01T00:00:00Z`);
+    const end = new Date(
+      Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 1, 1),
     );
+
+    const q = query(
+      this.collectionRef,
+      where("userId", "==", userId),
+      where("date", ">=", Timestamp.fromDate(start)),
+      where("date", "<", Timestamp.fromDate(end)),
+    );
+
+    const snapshot = await getDocs(q);
 
     return snapshot.docs
       .map((docSnapshot) => toExpenseRecord(docSnapshot.id, docSnapshot.data()))

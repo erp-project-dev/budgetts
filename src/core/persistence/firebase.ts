@@ -4,7 +4,11 @@ import {
   getAuth,
   setPersistence,
 } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import {
+  initializeFirestore,
+  persistentLocalCache,
+  persistentMultipleTabManager,
+} from "firebase/firestore";
 
 import { Logger } from "../logger";
 
@@ -19,7 +23,11 @@ const firebaseConfig = {
 
 export const firebaseApp = initializeApp(firebaseConfig);
 export const firebaseAuth = getAuth(firebaseApp);
-export const firestoreDb = getFirestore(firebaseApp);
+export const firestoreDb = initializeFirestore(firebaseApp, {
+  localCache: persistentLocalCache({
+    tabManager: persistentMultipleTabManager(),
+  }),
+});
 
 setPersistence(firebaseAuth, browserLocalPersistence).catch((err) =>
   Logger.error("[Firebase] Persistence error:", err),

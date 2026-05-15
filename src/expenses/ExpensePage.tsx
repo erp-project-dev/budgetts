@@ -6,6 +6,7 @@ import { Logger } from "@/core/logger";
 import { Section } from "@/shared/components/blocks/Section";
 import { SkeletonWrapper } from "@/shared/components/blocks/SkeletonWrapper";
 import { Button } from "@/shared/components/form/Button";
+import { getCurrentPeriod } from "@/shared/utils/date";
 
 import { useSignedInApp } from "@/app/hooks/useApp";
 import { BUDGET_TOPICS } from "@/budgets/listeners";
@@ -30,7 +31,10 @@ export function ExpensePage() {
     const fetchExpenses = async () => {
       setLoading(true);
       try {
-        const data = await expenseService.listByUser(session.id);
+        const data = await expenseService.listByUser(
+          session.id,
+          getCurrentPeriod(),
+        );
         if (!cancelled) setItems(data);
       } finally {
         if (!cancelled) setLoading(false);

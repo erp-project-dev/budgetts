@@ -14,8 +14,8 @@ export class ExpenseService {
     this.repository = expenseRepository;
   }
 
-  listByUser(userId: string): Promise<Expense[]> {
-    return this.repository.listByUser(userId);
+  listByUser(userId: string, period: string): Promise<Expense[]> {
+    return this.repository.listByUser(userId, period);
   }
 
   async create(input: NewExpenseInput): Promise<Expense> {

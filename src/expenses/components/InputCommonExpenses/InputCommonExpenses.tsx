@@ -15,18 +15,18 @@ interface InputCommonExpensesProps {
   value: string;
   onChange: (value: string) => void;
   onSelectTemplate: (template: ExpenseTemplate) => void;
-  error?: string;
   disabled?: boolean;
   currrencyCode: CurrencyCode;
+  autofocus: boolean;
 }
 
 export const InputCommonExpenses = ({
   value,
   onChange,
   onSelectTemplate,
-  error,
   disabled,
   currrencyCode,
+  autofocus,
 }: InputCommonExpensesProps) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -49,7 +49,6 @@ export const InputCommonExpenses = ({
     <div className="relative w-full" ref={containerRef}>
       <div className="relative flex items-center">
         <Input
-          error={error}
           value={value}
           disabled={disabled}
           placeholder="Ej. Starbucks, Almuerzo..."
@@ -60,7 +59,7 @@ export const InputCommonExpenses = ({
           onFocus={() => setShowSuggestions(true)}
           onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
           className="pl-11 pr-10"
-          autoFocus
+          autoFocus={autofocus}
         />
 
         <Search className="absolute left-4 top-4.5 w-4 h-4 text-stone-400 pointer-events-none" />
